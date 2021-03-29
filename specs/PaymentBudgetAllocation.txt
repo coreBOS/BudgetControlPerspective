@@ -1,0 +1,36 @@
+New coreBOS Module
+
+Name: PaymentBudgetAllocation
+Repository: https://github.com/coreBOS/cbPaymentBudgetAllocation
+Internal Name: cbPaymentBudgetAllocation
+
+- Block: cbPaymentBudgetAllocation
+
+`columnname`, `uitype`, `fieldname`, `fieldlabel`, `displaytype`, `type_of_data`
+('cyp', '10', 'cyp', 'Payment', 1, 'V~O'),  CobroPago
+('paymentbudgetallocationno', '4', 'paymentbudgetallocationno', 'Payment Budget Allocation No', 1, 'V~M'),    MODULE REFERENCE FIELD
+
+('budgetitem', '10', 'budgetitem', 'Budget Item', 1, 'V~O'),  cbBudgetItem
+('smownerid', '53', 'assigned_user_id', 'Assigned To'),
+
+('percentage', '9', 'percentage', 'Percentage', 1, 'I~O'),
+('pbamount', '71', 'pbamount', 'Allocated Amount', 1, 'NN~O'),
+
+('createdtime', '70', 'createdtime', 'Created Time'),
+('modifiedtime', '70', 'modifiedtime', 'Modified Time'),
+
+- Block: Description
+('description', '19', 'description', 'Description', 1, 'V~O'),
+
+
+List View Fields: paymenttimeallocationno, cyp, budgetitem, pbamount, percentage
+Related List Fields: paymenttimeallocationno, cyp, budgetitem, pbamount, percentage
+Popup Search Fields: paymenttimeallocationno, cyp, budgetitem, pbamount, percentage
+
+Related Lists:
+ - None
+
+Module: public
+
+Instructions
+

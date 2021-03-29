@@ -1,0 +1,38 @@
+New coreBOS Module
+
+Name: ReviewIt
+Repository: https://github.com/coreBOS/cbReview
+Internal Name: cbReview
+
+- Block: cbReview
+
+`columnname`, `uitype`, `fieldname`, `fieldlabel`, `displaytype`, `type_of_data`
+('whyreview', '1', 'whyreview', 'Why', 1, 'V~O'),
+('reviewitno', '4', 'reviewitno', 'Review No', 1, 'V~M'),    MODULE REFERENCE FIELD
+
+('whoreview', '10', 'whoreview', 'Who', 1, 'V~O'),  Accounts,Contacts
+('smownerid', '53', 'assigned_user_id', 'Assigned To'),
+
+('whenreview', '5', 'whenreview', 'When', 1, 'D~O'),
+('reviewresulttype', '15', 'reviewresulttype', 'Result Type', 1, 'V~M'),  Created, Reviewing, Positive, Negative, Abandoned
+
+('whatreview', '10', 'whatreview', 'What', 1, 'V~O'),  Quotes,Potentials,Documents
+('createdtime', '70', 'createdtime', 'Created Time'),
+
+('modifiedtime', '70', 'modifiedtime', 'Modified Time'),
+
+- Block: Result
+('description', '19', 'description', 'Result', 1, 'V~O'),
+
+
+List View Fields: reviewitno, whyreview, whoreview, whenreview, whatreview, reviewresulttype, Assigned To
+Related List Fields: reviewitno, whyreview, whoreview, whenreview, whatreview, reviewresulttype, Assigned To
+Popup Search Fields: reviewitno, whyreview, whoreview, whenreview, whatreview, reviewresulttype, Assigned To
+
+Related Lists:
+ - None
+
+Module: public
+
+Instructions
+On first save of a review record we will create a comment on the "what" record with "Review" as a link to the review record.

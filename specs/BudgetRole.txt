@@ -1,0 +1,34 @@
+New coreBOS Module
+
+Name: BudgetRole
+Repository: https://github.com/coreBOS/cbBudgetRole
+Internal Name: cbBudgetRole
+
+- Block: cbBudgetRole
+
+`columnname`, `uitype`, `fieldname`, `fieldlabel`, `displaytype`, `type_of_data`
+('whorole', '10', 'whorole', 'Who', 1, 'V~O'),  Accounts,Contacts
+('cbbudgetroleno', '4', 'cbbudgetroleno', 'Role No', 1, 'V~M'),    MODULE REFERENCE FIELD
+
+('whatfor', '10', 'whatfor', 'What', 1, 'V~O'),  Budget,Quotes,Potentials,Documents
+('smownerid', '53', 'assigned_user_id', 'Assigned To'),
+
+('budgetroletype', '15', 'budgetroletype', 'Role Type', 1, 'V~M'),  Initiator, Stake Holder, Approver, Reviewer
+('createdtime', '70', 'createdtime', 'Created Time'),
+
+('modifiedtime', '70', 'modifiedtime', 'Modified Time'),
+
+- Block: Description
+('description', '19', 'description', 'Description', 1, 'V~O'),
+
+
+List View Fields: cbbudgetroleno, whorole, whatfor, budgetroletype, Assigned To
+Related List Fields: cbbudgetroleno, whorole, whatfor, budgetroletype, Assigned To
+Popup Search Fields: cbbudgetroleno, whorole, whatfor, budgetroletype, Assigned To
+
+Related Lists:
+ - None
+
+Module: public
+
+Instructions

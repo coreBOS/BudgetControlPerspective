@@ -4,7 +4,7 @@
 
 This set of modules implement a complex system to control an assigned monetary budget to a set of projects and business units inside given time ranges. It also defines a set of procedures and recommendations to manage deadline alerts and automate certain tasks during the process as well as aggregating the time spent on the related projects onto the budget assignment. Effectively permitting us to follow the profitability of projects, clients, and business units.
 
-![Profit Control E-R](BudgetProfitER.png?raw=true "Profit Control E-R")
+![Profit Control E-R](specs/BudgetProfitER.png?raw=true "Profit Control E-R")
 
 Most of the real work is done through the "Allocation" modules, these represent the assignment of "facts" to the budget, but let's define the entities first.
 
@@ -137,3 +137,17 @@ Control the expenses planned for a Marketing campaign.
   - Experience predicts that one can expect 50 leads for every $5,000 expended
 
 As we make the purchases we can control the budget
+
+## Module Specifications
+
+Links to module specifications in **install** order.
+
+- [ReviewIt](specs/ReviewIt.txt)
+- [BudgetRole](specs/BudgetRole.txt)
+- [PaymentBudgetAllocation](specs/PaymentBudgetAllocation.txt)
+- [RequirementBudgetAllocation](specs/RequirementBudgetAllocation.txt)
+- [BudgetRequirement](specs/BudgetRequirement.txt)
+- [ProjectBudgetAllocation](specs/ProjectBudgetAllocation.txt)
+- [TransactionBudgetAllocation](specs/TransactionBudgetAllocation.txt)
+- [BudgetItem](specs/BudgetItem.txt)
+- [Budget](specs/Budget.txt)

@@ -1,0 +1,74 @@
+New coreBOS Module
+
+Name: Budget
+Repository: https://github.com/coreBOS/cbBudget
+Internal Name: cbBudget
+
+- Block: cbBudget
+
+`columnname`, `uitype`, `fieldname`, `fieldlabel`, `displaytype`, `type_of_data`
+('name', '1', 'name', 'Name', 1, 'V~M'),    MODULE REFERENCE FIELD
+('businessunit', '10', 'businessunit', 'Business Unit', 1, 'V~O'), cbCompany
+
+('fromdate', '5', 'fromdate', 'Date', 1, 'D~O'),
+('budgettype', '15', 'budgettype', 'Budget Type', 1, 'V~M'),  Operating, Captial, Profit Control
+
+('todate', '5', 'todate', 'Date', 1, 'D~O'),
+('budgetstatus', '15', 'budgetstatus', 'Budget Status', 1, 'V~M'),  Created, Reviewing, Approval, Accepted, Rejected, Active, Closed
+
+('cbbudgetno', '4', 'cbbudgetno', 'Budget No', 1, 'V~M'),
+('smownerid', '53', 'assigned_user_id', 'Assigned To'),
+
+('createdtime', '70', 'createdtime', 'Created Time'),
+('modifiedtime', '70', 'modifiedtime', 'Modified Time'),
+
+
+- Block: Amounts
+
+`columnname`, `uitype`, `fieldname`, `fieldlabel`, `displaytype`, `type_of_data`
+('eincome', '71', 'eincome', 'Estimate Income', 1, 'NN~M'),
+('rincome', '71', 'rincome', 'Real Income', 2, 'NN~M'), sum(Real Income of BudgetItems)
+
+('eexpense', '71', 'eexpense', 'Estimate Expense', 1, 'NN~M'),
+('rexpense', '71', 'rexpense', 'Real Expense', 2, 'NN~O'), sum(Real Expense of BudgetItems)
+
+('etotal', '71', 'etotal', 'Estimate Total', 2, 'NN~O'),   eincome-eexpense
+('rtotal', '71', 'rtotal', 'Real Total', 2, 'NN~O'),  rincome-rtotal
+
+('deviationamount', '71', 'deviationamount', 'Deviation Amount', 2, 'NN~O'),  rtotal-etotal
+('deviationpercentage', '7', 'deviationpercentage', 'Deviation Percentage', 2, 'NN~O'),  etotal*100/rtotal
+
+
+- Block: Description
+('description', '19', 'description', 'Description', 1, 'V~O'),
+
+
+List View Fields: name, fromdate, todate, businessunit, budgetstatus, budgettype, Assigned To
+Related List Fields: name, fromdate, todate, businessunit, budgetstatus, budgettype, Assigned To
+Popup Search Fields: name, fromdate, todate, businessunit, budgetstatus, budgettype, Assigned To
+
+Related Lists:
+ - Budget Item
+ - Budget Role
+ - Review
+ - Documents
+
+Module: private
+
+Instructions
+
+Crearemos un DetailViewWidget "Escenarios", para hacer estimaciones ad-hoc.
+
+Dos cajas de texto, una para Ingresos y otra para Gastos donde el usuario podrá insertar una fórmula utilizando el lenguage de expressiones, calcularemos el resultado y mostraremos los valores
+
+- Estimate Income
+- Estimate Expense
+- Estimate Total
+- Deviation Amount
+- Deviation Percentage
+
+- Botón de "Calcular"
+- Botón de "Aplicar"
+- ¿Permitir capturar la fórmula de business maps?
+
+
