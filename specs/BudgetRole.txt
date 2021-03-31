@@ -22,6 +22,7 @@ Internal Name: cbBudgetRole
 ('description', '19', 'description', 'Description', 1, 'V~O'),
 
 
+Icon: Standard > partner_fund_request
 List View Fields: cbbudgetroleno, whorole, whatfor, budgetroletype, Assigned To
 Related List Fields: cbbudgetroleno, whorole, whatfor, budgetroletype, Assigned To
 Popup Search Fields: cbbudgetroleno, whorole, whatfor, budgetroletype, Assigned To

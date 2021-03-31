@@ -32,6 +32,7 @@ BudgetItem | Expense Total | Budget Left | Percentage Allocated | Amount Allocat
 ('description', '19', 'description', 'Reason', 1, 'V~O'),
 
 
+Icon: Standard > skill_requirement
 List View Fields: reqname, income, expense, regstatus
 Related List Fields: reqname, income, expense, regstatus
 Popup Search Fields: reqname, income, expense, regstatus

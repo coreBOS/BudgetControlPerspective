@@ -23,6 +23,7 @@ Internal Name: cbTransactionBudgetAllocation
 ('description', '19', 'description', 'Description', 1, 'V~O'),
 
 
+Icon: Standard > partner_fund_allocation
 List View Fields: transactiontimeallocationno, relto, budgetitem, pbamount, percentage
 Related List Fields: transactiontimeallocationno, relto, budgetitem, pbamount, percentage
 Popup Search Fields: transactiontimeallocationno, relto, budgetitem, pbamount, percentage

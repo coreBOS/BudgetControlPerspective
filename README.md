@@ -8,12 +8,12 @@ This set of modules implement a complex system to control an assigned monetary b
 
 Most of the real work is done through the "Allocation" modules, these represent the assignment of "facts" to the budget, but let's define the entities first.
 
-- **Budget** describes the information about the amounts of money needed for a group of income and expense items over a certain period of time. So it has a name, a date range, and an estimated income and expense amount. Then, as we work in the application and assign incomes and expenses to the budget, the real income and expense will be calculated along with some other statistical information. Each Budget is related to a Business Unit for reporting and grouping purposes.
+- **Budget** describes the information about the amounts of money needed for a group of income and expense items over a certain period of time. So it has a name, a date range, and an estimated income and expense amount. Then, as we work in the application and assign incomes and expenses to the budget, the real income and expense will be calculated along with some other statistical information. Each Budget is related to a Business Unit for reporting and grouping purposes, in fact, this is the main reason a budget record exists: it defines a set of shared fields of the budget items in order to group them together for reporting.
 - **Budget Item** describes the details of a budget. Each BUDGET must be composed of one or more BUDGET ITEMs, which store the details of exactly what is being budgeted. They also have an estimated income and expense and the real values will be calculated as we work on the projects. Besides some auto-calculated statistical fields, it also contains a name, a status, a type, and information fields to explain what the item represents.
 - **Budget Role** Each BUDGET may have many parties (which may be a person or an organization) involved in various BUDGET ROLEs like the initiator of the budget request, the party for whom the budget is requested, the reviewer(s) of a budget, and the approver of the budget.
 - **Review** provides the information about which parties were involved in the review process. The review date identifies when they were involved in the review. The Result attribute allows any personal opinions about the review to be documented. Each person's decision regarding the budget review is indicated via the review Result type.
 - **Payment Budget Allocation** records both disbursements and receipts against budget items, depending on the type of payment. The allocation contains both a percentage and an amount. If the percentage is set to 0, then the amount field will be used as given (something like a fixed cost). If the percentage field is bigger than 0, then the amount field will be calculated by applying the percentage to the payment amount, permitting us to easily assign different amounts to different budget items from one payment.
-- **Transaction Budget Allocation** records both disbursements and receipts against budget items, but only for disbursements that do not have a corresponding payment associated with them. Only the pending amount of the Purchase Order or Invoice will be accumulated against the budget item. As payments are made, the amounts will be accumulated through the payment. The transaction allocation is a way to reflect the future commitments onto the budget before the real payment is made. Once the payment happens, the budget will get the amounts from there. The allocation contains both a percentage and an amount. If the percentage is set to 0, then the amount field will be used as given. If the percentage field is bigger than 0, then the amount field will be calculated by applying the percentage to the total of the related inventory record, permitting us to easily assign different amounts to different budget items from one Invoice or Purchase Order.
+- **Transaction Budget Allocation** records both disbursements and receipts against budget items, but only for disbursements that do not have a corresponding payment associated with them. Only the pending amount of the Purchase Order or Invoice will be accumulated against the budget item. As payments are made, the amounts will be accumulated through the payment. The transaction allocation is a way to reflect the future commitments onto the budget before the real payment is made. Once the payment happens, the budget will get the amounts from there. The allocation contains both a percentage and an amount. If the percentage is set to 0, then the amount field will be used as given. If the percentage field is bigger than 0, then the amount field will be calculated by applying the percentage to the total of the related inventory record, permitting us to easily assign different amounts to different budget items from one Invoice or Purchase Order. Note that this is just a helper relation for convenience, the payments are the final register of the money movement. We could use only payments to record the allocations. When an Invoice is made, we create a payment for it, mark it as not paid and allocate it to the budget item where the totals are updated. Then, if the invoice is not paid, we can delete the payment and the allocation. This is what we accomplish with the Transaction allocation, the only difference is that we don't fill the payment module with possible future payments that may not happen.
 - **Project Budget Allocation** represents a distribution of a budget item income upon a project. We can see how the income of a budget is spent on the different projects it funds. If the percentage field is bigger than 0, then the amount field will be calculated by applying the percentage to the estimated total income of the related budget item.
 - **Project Time Allocation** permits us to accumulate time spent on projects onto budget items. Budget Items have a **total time spent" field that will be populated from the Time Allocations related to it in the percentage set. This way we can easily see the total amount of time spent on a budgeted item and the distribution of that time per related projects.
 
@@ -34,6 +34,7 @@ The requirement module has a dynamic grid that permits us to easily relate diffe
 
 We get a payment to cover three projects for 6 months. Let's suppose we get a payment from a client for $50000 to cover the cost of three projects during six months. 30% of the payment is for project 1, another 30% for project 2, and the final 40% is for project 3. We create a Budget record with these values
 
+- Budget Number: budget-99
 - Name: ACME payment first semester 2021
 - Business Unit: Our Company
 - From Date: 2021-01-01
@@ -47,31 +48,29 @@ Now we create a budget item. In this case, we just need one, like this
 
 - Budget Item Number: bi-999
 - Name: ACME payment first semester 2021
-- Budget: link to the budget
 - Item Type: Project
 - Item Status: Active
 - Estimated Income: $50000
 - Estimated Expense: $40000
-- Purpose: short description of payment
+- Purpose: a short description of payment
 - Justification: link to the invoice (for example)
+
+- Link to Budget: budget-99 (related list)
 
 Next, we create three Project Budget Allocation records, like this
 
 - Project: Project 1
 - Budget Item: Budget Item bi-999
-- From-To the same as the budget
 - Percentage: 30
 - Allocated Amount: (will be calculated, in this use case we could set the percentage to 0 and put $15000 here)
 
 - Project: Project 2
 - Budget Item: Budget Item bi-999
-- From-To the same as the budget
 - Percentage: 30
 - Allocated Amount: (will be calculated, in this use case we could set the percentage to 0 and put $15000 here)
 
 - Project: Project 3
 - Budget Item: Budget Item bi-999
-- From-To the same as the budget
 - Percentage: 40
 - Allocated Amount: (will be calculated, in this use case we could set the percentage to 0 and put $20000 here)
 
@@ -91,11 +90,11 @@ The creation of this record will trigger the process to calculate the values of 
 - Budget Item Real Total and Deviations
 - Budget Real Income, Expense, Total and Deviations as the sum of the only Budget Item related
 
-Now, as we create Purchase Order (salary payments or goods to provision the service), and we create new Payment Budget Allocation records, the real expense field will be updated along with the other calculated fields of the budget records.
+Now, as we create Purchase Order and Pay Checks (salary payments or goods to provision the service), and we create new Payment Budget Allocation records, the real expense field will be updated along with the other calculated fields of the budget records.
 
 It is a trivial task to create workflows that detect thresholds of deviation that you want to get notified on.
 
-If we use [time control](https://corebos.com/documentation/doku.php?id=en:extensions:extensions:timecontrol), this perspective will accumulate the time spend on the budget item so, again, we can send out notifications on any values we want to control.
+If we use [time control](https://corebos.com/documentation/doku.php?id=en:extensions:extensions:timecontrol), this perspective will accumulate the time spent on the budget item so, again, we can send out notifications on any values we want to control.
 
 **Distribute payment among projects with different time periods**
 
@@ -107,13 +106,17 @@ The same scenario as above but the distribution is different for each project:
 
 One approach is to create three Budgets and apply the same technique as the previous example. In this case, what is different is that we have to make three payment allocations one for each part of the same invoice payment record. So the distribution is on the payment, each project has its own allocation and budget item, not a shared one.
 
-Another approach is to use the From-To fields on the project allocation. So, just like the previous example, we have one budget, one budget item, one payment allocation, and three project allocations, the only thing that changes is the from and to dates. These dates will be taken into consideration when transaction allocation and time control registers are created.
+Another approach is to use the From-To fields on the budget item allocation. So, just like the previous example, we have one budget, three budget items, one payment allocation, and three project allocations (one for each budget item). The from and to dates on each budget item determine the allocation of expenses and incomes. Each budget item has a total income corresponding to the distribution indicated by the client for each project. These dates will be taken into consideration when transaction allocation and time control registers are created.
 
 **Working on a project with payments in the future**
 
 The typical use case is when we start a project with a predefined payment plan. We have to implement a feature that will take 3 months to develop and we will get paid, 30% at the start, %30 after the first two months, and %40 at the end of the project.
 
 We create one budget, one budget item with the total project amount as the estimated income and set an estimated expense (salaries and other resources the project may need). As we purchase goods and pay salaries we make payment allocations that will increment the real expenses and as we get paid we allocate payments against the real income. If we are tracking time on the project we will also be able to see the time being spent.
+
+We could also create two Sales Orders, set the recurring invoice on each one to create an invoice for us on the dates established for each payment and create a Transaction Budget Allocation for each one. That way the real income would be calculated based on the whole income.
+
+Another option would be to create payment records marked as "not paid" with the dates in the future and allocate those to the budget item.
 
 **Marketing Plan Budget**
 
@@ -137,6 +140,18 @@ Control the expenses planned for a Marketing campaign.
   - Experience predicts that one can expect 50 leads for every $5,000 expended
 
 As we make the purchases we can control the budget
+
+**Time period grouping**
+
+The correct way to understand a Budget is simply as a grouping/statistical record of a set of budget items. It has no further purpose than to act as a grouping container of budget items. That is why the relation between Budget and Budget Items is a many to many relation and not a direct one to many relation.
+
+If we need to report on Budget Items per Business Unit we do that through the Budget, for example.
+
+Now, the budget can also group the budget items per time periods. Let's suppose we have a monthly support contract with a client which includes a certain amount of hours and expenses. We will create a budget item for each month where we will control the income and expenses. In this case, we can use the Budget to group those budget items per quarter, semester, and yearly.
+
+**"What if" scenarios**
+
+Both the Budget and the Budget Items have a "What if" functionality. This is a section where we can create expressions to modify the income and expenses and recalculate the deviation fields. This permits us to easily evaluate different possibilities and see how the process is going.
 
 ## Module Specifications
 

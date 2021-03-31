@@ -7,11 +7,8 @@ Internal Name: cbProjectBudgetAllocation
 - Block: cbProjectBudgetAllocation
 
 `columnname`, `uitype`, `fieldname`, `fieldlabel`, `displaytype`, `type_of_data`
-('prj', '10', 'prj', 'Project', 1, 'V~O'),  Projects
-('fromdate', '5', 'fromdate', 'Date', 1, 'D~O'),
-
+('relto', '10', 'relto', 'Related To', 1, 'V~O'),  Projects, ServiceContract
 ('budgetitem', '10', 'budgetitem', 'Budget Item', 1, 'V~O'),  cbBudgetItem
-('todate', '5', 'todate', 'Date', 1, 'D~O'),
 
 ('percentage', '9', 'percentage', 'Percentage', 1, 'I~O'),
 ('projectbudgetallocationno', '4', 'projectbudgetallocationno', 'Project Budget Allocation No', 1, 'V~M'),    MODULE REFERENCE FIELD
@@ -28,9 +25,10 @@ Internal Name: cbProjectBudgetAllocation
 ('description', '19', 'description', 'Description', 1, 'V~O'),
 
 
-List View Fields: projectbudgetallocationno, prj, budgetitem, fromdate, todate, percentage, pbamount, totaltimehours
-Related List Fields: projectbudgetallocationno, prj, budgetitem, fromdate, todate, percentage, pbamount, totaltimehours
-Popup Search Fields: projectbudgetallocationno, prj, budgetitem, fromdate, todate, percentage, pbamount, totaltimehours
+Icon: Standard > partner_fund_allocation
+List View Fields: projectbudgetallocationno, relto, budgetitem, percentage, pbamount, totaltimehours
+Related List Fields: projectbudgetallocationno, relto, budgetitem, percentage, pbamount, totaltimehours
+Popup Search Fields: projectbudgetallocationno, relto, budgetitem, percentage, pbamount, totaltimehours
 
 Related Lists:
  - None
@@ -43,7 +41,7 @@ Instructions
 - on save of budgetitem, update amount for all related records with percentage>0 with formula above
 
 Create after-save event handler on Timecontrol module: when a TC is added to a project or projecttask, we check
-- if the project has an allocation
-- if the TC datetime is in the range of the budget and allocation
+- if the project has an allocation, either directly or through a ServiceContract
+- if the TC datetime is in the range of the budget and budget item
 - if it is, we accumulate the time on the allocation and then the percentage on the budget item
 - for each project time allocation

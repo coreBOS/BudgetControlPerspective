@@ -23,6 +23,7 @@ Internal Name: cbPaymentBudgetAllocation
 ('description', '19', 'description', 'Description', 1, 'V~O'),
 
 
+Icon: Standard > partner_fund_allocation
 List View Fields: paymenttimeallocationno, cyp, budgetitem, pbamount, percentage
 Related List Fields: paymenttimeallocationno, cyp, budgetitem, pbamount, percentage
 Popup Search Fields: paymenttimeallocationno, cyp, budgetitem, pbamount, percentage

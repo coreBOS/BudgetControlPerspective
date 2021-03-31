@@ -23,6 +23,7 @@ Internal Name: cbProjectTimeAllocation
 ('description', '19', 'description', 'Description', 1, 'V~O'),
 
 
+Icon: Standard > partner_fund_allocation
 List View Fields: projecttimeallocationno, prj, budgetitem, percentage, totaltimehours
 Related List Fields: projecttimeallocationno, prj, budgetitem, percentage, totaltimehours
 Popup Search Fields: projecttimeallocationno, prj, budgetitem, percentage, totaltimehours

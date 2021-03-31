@@ -10,13 +10,15 @@ Internal Name: cbBudgetItem
 ('itemname', '1', 'itemname', 'Name', 1, 'V~M'),    MODULE REFERENCE FIELD
 ('cbbudgetitemno', '4', 'cbbudgetitemno', 'Budget Item No', 1, 'V~M'),
 
-('budget', '10', 'budget', 'Budget', 1, 'V~O'), cbBudget
+('fromdate', '5', 'fromdate', 'Date', 1, 'D~O'),
 ('smownerid', '53', 'assigned_user_id', 'Assigned To'),
 
+('todate', '5', 'todate', 'Date', 1, 'D~O'),
 ('budgetitemtype', '15', 'budgetitemtype', 'Item Type', 1, 'V~M'),  Operating, Project, Office
-('budgetitemstatus', '15', 'budgetitemstatus', 'Item Status', 1, 'V~M'),  Created, Reviewing, Approval, Accepted, Rejected, Active, Closed
 
+('budgetitemstatus', '15', 'budgetitemstatus', 'Item Status', 1, 'V~M'),  Created, Reviewing, Approval, Accepted, Rejected, Active, Closed
 ('createdtime', '70', 'createdtime', 'Created Time'),
+
 ('modifiedtime', '70', 'modifiedtime', 'Modified Time'),
 
 
@@ -44,11 +46,13 @@ Internal Name: cbBudgetItem
 ('justification', '19', 'justification', 'Justification', 1, 'V~O'),
 
 
+Icon: Standard > partner_marketing_budget
 List View Fields: itemname, budget, budgetitemtype, budgetitemstatus, eincome, rincome, eexpense, rexpense, etotal, rtotal
 Related List Fields: itemname, budget, budgetitemtype, budgetitemstatus, eincome, rincome, eexpense, rexpense, etotal, rtotal
 Popup Search Fields: itemname, budget, budgetitemtype, budgetitemstatus, eincome, rincome, eexpense, rexpense, etotal, rtotal
 
 Related Lists:
+ - Budget
  - Payment Budget Allocation
  - Transaction Budget Allocation
  - Project Budget Allocation
@@ -72,6 +76,6 @@ Dos cajas de texto, una para Ingresos y otra para Gastos donde el usuario podrá
 
 - Botón de "Calcular"
 - Botón de "Aplicar"
-- ¿Permitir capturar la fórmula de business maps?
+- Permitir capturar la fórmula de business maps
 
 

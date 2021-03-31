@@ -43,6 +43,7 @@ Internal Name: cbBudget
 ('description', '19', 'description', 'Description', 1, 'V~O'),
 
 
+Icon: Standard > partner_fund_allocation
 List View Fields: name, fromdate, todate, businessunit, budgetstatus, budgettype, Assigned To
 Related List Fields: name, fromdate, todate, businessunit, budgetstatus, budgettype, Assigned To
 Popup Search Fields: name, fromdate, todate, businessunit, budgetstatus, budgettype, Assigned To
@@ -69,6 +70,6 @@ Dos cajas de texto, una para Ingresos y otra para Gastos donde el usuario podrá
 
 - Botón de "Calcular"
 - Botón de "Aplicar"
-- ¿Permitir capturar la fórmula de business maps?
+- Permitir capturar la fórmula de business maps
 
 

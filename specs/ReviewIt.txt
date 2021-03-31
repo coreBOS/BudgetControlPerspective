@@ -25,6 +25,7 @@ Internal Name: cbReview
 ('description', '19', 'description', 'Result', 1, 'V~O'),
 
 
+Icon: Standard > approval
 List View Fields: reviewitno, whyreview, whoreview, whenreview, whatreview, reviewresulttype, Assigned To
 Related List Fields: reviewitno, whyreview, whoreview, whenreview, whatreview, reviewresulttype, Assigned To
 Popup Search Fields: reviewitno, whyreview, whoreview, whenreview, whatreview, reviewresulttype, Assigned To
